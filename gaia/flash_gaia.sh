@@ -17,6 +17,12 @@ localecode="it"
 # Folder used to store Gaia and locale repositories
 repofolder="$HOME/moz/"
 
+# Create ~/moz if it does not exist
+if [ ! -d repofolder ]
+then
+mkdir -p repofolder
+fi
+
 # You shouldn't need to modify the script after this line
 
 function interrupt_code()
@@ -46,7 +52,7 @@ function printUsage() {
 	echo "Usage: flash_gaia.sh version [--no-update]"
 	echo "Examples:"
 	echo "flash_gaia.sh 1.2"
-	echo "flash_gaia.sh 1.2 --no-update"
+	echo "flash_gaia.sh 2.0 --no-update"
 }
 
 # No parameters
@@ -99,7 +105,7 @@ else
 fi
 
 # Check if the provided version makes sense
-if [ $version != 'master' ] && [ ${version:0:2} != '1.' ]
+if [ $version != 'master' ] && [ ${version:0:2} != '1.' && [ ${version:0} != '2.' ]
 then
 	echored "Unknown Gaia version, aborting."
 	exit
@@ -199,5 +205,56 @@ else
 	fi
 fi
 
+
+
+if [ hggaiaversion == 2_0 ]
+then
+mkdir 2.0
+cd 2.0
+b2g_version=32.0
+url=http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-b2g32_v$hggaiaversion-flame/
+
+elif [hggaiaversion == 1_4 ]
+then
+mkdir 1.4
+cd 1.4
+b2g_version=30.0
+url=http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-b2g30_v$hggaiaversion-flame/
+fi
+
+
+ 
+#clean
+for dir in b2g gaia system resources gaia.zip b2g-$b2g_version.en-US.android-arm.tar.gz; do
+if [ -d $dir ] || [ -f $dir ]; then
+rm -r $dir;
+fi
+done
+ 
+#download update files
+#wget $url/gaia.zip
+wget $url/b2g-$b2g_version.en-US.android-arm.tar.gz
+ 
+#prepare update
+#unzip gaia.zip
+ 
+tar -zxvf b2g-$b2g_version.en-US.android-arm.tar.gz
+ 
+mkdir system
+ 
+mv b2g system/
+#mv gaia/profile/* system/b2g/
+ 
+#update the phone
+adb remount
+adb shell rm -r /system/b2g
+adb reboot
+adb wait-for-device
+adb remount
+adb shell stop b2g
+adb push system/b2g /system/b2g
+
 cd $repofolder/gaia
-make clean && PRODUCTION=1 make install-gaia MAKECMDGOALS=production MOZILLA_OFFICIAL=1 GAIA_KEYBOARD_LAYOUTS=en,$localecode LOCALES_FILE=locales/languages_all.json LOCALE_BASEDIR=locales/ DEVICE_DEBUG=1
+make clean PRODUCTION=1 make install-gaia MAKECMDGOALS=production MOZILLA_OFFICIAL=1 GAIA_KEYBOARD_LAYOUTS=en,$localecode LOCALES_FILE=locales/languages_all.json LOCALE_BASEDIR=locales/ DEVICE_DEBUG=1
+
+adb shell start b2g
