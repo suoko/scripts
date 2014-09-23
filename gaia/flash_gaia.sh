@@ -208,13 +208,13 @@ cd "$repofolder/$hggaiaversion"
 
 
 
-if [ hggaiaversion == 2_0 ]
+if [ $hggaiaversion == 2_0 ]
 then
 
 b2g_version=32.0
 url=http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-b2g${b2g_version:0:2}_v$hggaiaversion-flame/
 
-elif [hggaiaversion == 1_4 ]
+elif [ $hggaiaversion == 1_4 ]
 then
 
 b2g_version=30.0
