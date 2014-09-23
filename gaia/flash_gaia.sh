@@ -117,7 +117,7 @@ else
 	gitversion="v$version"
 fi
 
-mkdir -p "$repofolder/hggaiaversion"
+mkdir -p "$repofolder/$hggaiaversion"
 cd "$repofolder/$hggaiaversion"
 
 # Check if mercurial and git are available
