@@ -17,11 +17,6 @@ localecode="it"
 # Folder used to store Gaia and locale repositories
 repofolder="$HOME/moz/"
 
-# Create ~/moz if it does not exist
-if [ ! -d repofolder ]
-then
-mkdir -p repofolder
-fi
 
 # You shouldn't need to modify the script after this line
 
@@ -122,7 +117,8 @@ else
 	gitversion="v$version"
 fi
 
-cd "$repofolder"
+mkdir -p "$repofolder/hggaiaversion"
+cd "$repofolder/$hggaiaversion"
 
 # Check if mercurial and git are available
 if ! hash git 2>/dev/null
@@ -161,7 +157,8 @@ else
 	fi
 fi
 
-cd "$repofolder/gaia/locales"
+
+cd "$repofolder/$hggaiaversion/gaia/locales"
 
 # Does the locale folder exist?
 if [ -d "$localecode" ]
@@ -205,6 +202,9 @@ else
 		hg up -C
 	fi
 fi
+
+
+cd "$repofolder/$hggaiaversion"
 
 
 
