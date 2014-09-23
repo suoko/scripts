@@ -51,8 +51,9 @@ function echogreen() {
 function printUsage() {
 	echo "Usage: flash_gaia.sh version [--no-update]"
 	echo "Examples:"
-	echo "flash_gaia.sh 1.2"
+	echo "flash_gaia.sh 1.4"
 	echo "flash_gaia.sh 2.0 --no-update"
+	echo "only 1.4 and 2.0 are currently supported"
 }
 
 # No parameters
