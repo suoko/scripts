@@ -105,7 +105,7 @@ else
 fi
 
 # Check if the provided version makes sense
-if [ $version != 'master' ] && [ ${version:0:2} != '1.' && [ ${version:0} != '2.' ]
+if [ $version != 'master' ] && [ ${version:0:2} != '1.' ] && [ ${version:0:2} != '2.' ]
 then
 	echored "Unknown Gaia version, aborting."
 	exit
