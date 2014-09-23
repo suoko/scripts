@@ -235,14 +235,21 @@ done
 wget $url/b2g-$b2g_version.en-US.android-arm.tar.gz
  
 #prepare update
-#unzip gaia.zip
+#unzip gecko
  
 tar -zxvf b2g-$b2g_version.en-US.android-arm.tar.gz
+
+#compile gaia
+cd $repofolder/$hggaiaversion/gaia
+make clean 
+PRODUCTION=1 make MAKECMDGOALS=production MOZILLA_OFFICIAL=1 GAIA_KEYBOARD_LAYOUTS=en,$localecode LOCALES_FILE=locales/languages_all.json LOCALE_BASEDIR=locales/ DEVICE_DEBUG=1
+
+cd "$repofolder/$hggaiaversion"
  
 mkdir system
  
 mv b2g system/
-#mv gaia/profile/* system/b2g/
+mv gaia/profile/* system/b2g/
  
 #update the phone
 adb remount
@@ -253,8 +260,5 @@ adb remount
 adb shell stop b2g
 adb push system/b2g /system/b2g
 
-cd $repofolder/$hggaiaversion/gaia
-make clean 
-PRODUCTION=1 make install-gaia MAKECMDGOALS=production MOZILLA_OFFICIAL=1 GAIA_KEYBOARD_LAYOUTS=en,$localecode LOCALES_FILE=locales/languages_all.json LOCALE_BASEDIR=locales/ DEVICE_DEBUG=1
 
 adb shell start b2g
