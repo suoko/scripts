@@ -224,7 +224,7 @@ fi
 
  
 #clean
-for dir in b2g gaia system resources gaia.zip b2g-$b2g_version.en-US.android-arm.tar.gz; do
+for dir in system gaia.zip b2g-$b2g_version.en-US.android-arm.tar.gz; do
 if [ -d $dir ] || [ -f $dir ]; then
 rm -r $dir;
 fi
@@ -262,3 +262,5 @@ adb push system/b2g /system/b2g
 
 
 adb shell start b2g
+rm -fr gaia b2g-$b2g_version.en-US.android-arm.tar.gz
+echo "you've been left with system directory only"
