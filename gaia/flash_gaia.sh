@@ -48,7 +48,7 @@ function printUsage() {
 	echo "Examples:"
 	echo "flash_gaia.sh 1.4"
 	echo "flash_gaia.sh 2.0 --no-update"
-	echo "only 1.4 and 2.0 are currently supported"
+	echo "only 1.4 2.0 and master (2.1) are currently supported"
 }
 
 # No parameters
@@ -208,17 +208,21 @@ cd "$repofolder/$hggaiaversion"
 
 
 
-if [ $hggaiaversion == 2_0 ]
+if [ $hggaiaversion == "2_0" ]
 then
-
 b2g_version=32.0
 url=http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-b2g${b2g_version:0:2}_v$hggaiaversion-flame/
 
-elif [ $hggaiaversion == 1_4 ]
+elif [ $hggaiaversion == "1_4" ]
 then
-
 b2g_version=30.0
 url=http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-b2g${b2g_version:0:2}_v$hggaiaversion-flame/
+
+elif [ $hggaiaversion == "master" ]
+then
+b2g_version=34.0a2
+url=http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-aurora-flame/
+
 fi
 
 
