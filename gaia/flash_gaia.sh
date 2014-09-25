@@ -211,7 +211,7 @@ cd "$repofolder/$hggaiaversion"
 if [ $hggaiaversion == "2_0" ]
 then
 b2g_version=32.0
-url=http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-b2g${b2g_version:0:2}_v$hggaiaversion-flame/
+url=http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-b2g${b2g_version:0:2}_v$hggaiaversion-flame-kk/
 
 elif [ $hggaiaversion == "1_4" ]
 then
@@ -221,7 +221,7 @@ url=http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-b2g${b2g_v
 elif [ $hggaiaversion == "master" ]
 then
 b2g_version=34.0a2
-url=http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-aurora-flame/
+url=http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-aurora-flame-kk/
 
 fi
 
