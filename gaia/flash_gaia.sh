@@ -172,14 +172,14 @@ then
 	l10nrepo=$(awk -F "=" '/default/ {print $2}' $localecode/.hg/hgrc | tr -d ' ')
 	echogreen "Checking if the l10n repo is correct for $gitversion"
 	# If default path doesn't contain releases it's master
-	if [[ $l10nrepo != *releases* ]] && [ $version != "master" ]
+	if [[ $l10nrepo != *releases* ]] && [ $version != "2.1" ]
 	then
 		echored "Wrong locale version (master). Deleting folder"
 		rm -r $localecode
 	fi
 
 	# If default path contains /releases/ it's a version branch
-	if [[ $l10nrepo == *releases* ]] && [ $version == "master" ]
+	if [[ $l10nrepo == *releases* ]] && [ $version == "2.1" ]
 	then
 		echored "Wrong locale version (not master). Deleting folder"
 		rm -r $localecode
