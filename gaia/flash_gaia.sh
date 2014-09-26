@@ -48,7 +48,7 @@ function printUsage() {
 	echo "Examples:"
 	echo "flash_gaia.sh 1.4"
 	echo "flash_gaia.sh 2.0 --no-update"
-	echo "only 1.4 2.0 and master (2.1) are currently supported"
+	echo "only 1.4 2.0, 2.1 and master (now version 2.2) are currently supported"
 }
 
 # No parameters
@@ -101,13 +101,18 @@ else
 fi
 
 # Check if the provided version makes sense
-if [ $version != 'master' ] && [ ${version:0:3} != '1.4' ] && [ ${version:0:3} != '2.0' ]
+if [ $version != 'master' ] && [ ${version:0:3} != '1.4' ] && [ ${version:0:3} != '2.0' ] && [ ${version:0:3} != '2.1' ]
 then
 	echored "Unsupported Gaia version, aborting."
 	exit
 fi
 
-if [ $version == 'master' ]
+if [ $version == '2.1' ]
+then
+	hggaiaversion="master"
+	gitversion="master"
+
+elif [ $version == "master"]
 then
 	hggaiaversion="master"
 	gitversion="master"
@@ -185,10 +190,14 @@ fi
 if [ ! -d "$localecode" ]
 then
 	# Clone locale repo
-	if [ $version == 'master' ]
+	if [ $version == '2.1' ]
 	then
 		echogreen "Cloning https://hg.mozilla.org/gaia-l10n/$localecode/"
 		hg clone https://hg.mozilla.org/gaia-l10n/$localecode/
+	elif [ $version == "master"]
+	then
+		echogreen "Cloning https://bitbucket.org/flod/gaia-master-$localecode/"
+		hg clone https://bitbucket.org/flod/gaia-master-$localecode/
 	else
 		echogreen "Cloning https://hg.mozilla.org/releases/gaia-l10n/v$hggaiaversion/$localecode/"
 		hg clone https://hg.mozilla.org/releases/gaia-l10n/v$hggaiaversion/$localecode/
@@ -218,10 +227,15 @@ then
 b2g_version=30.0
 url=http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-b2g${b2g_version:0:2}_v$hggaiaversion-flame/
 
-elif [ $hggaiaversion == "master" ]
+elif [ $hggaiaversion == "2_1" ]
 then
 b2g_version=34.0a2
 url=http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-aurora-flame-kk/
+
+elif [ $hggaiaversion == "master" ]
+then
+b2g_version=35.0a1
+url=http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-central-flame-kk/
 
 fi
 
