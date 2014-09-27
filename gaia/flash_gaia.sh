@@ -198,6 +198,8 @@ then
 	then
 		echogreen "Cloning https://bitbucket.org/flod/gaia-master-$localecode/"
 		hg clone https://bitbucket.org/flod/gaia-master-$localecode/
+		cp -fr gaia-master-it/* it/
+		rm -fr gaia-master-it
 	else
 		echogreen "Cloning https://hg.mozilla.org/releases/gaia-l10n/v$hggaiaversion/$localecode/"
 		hg clone https://hg.mozilla.org/releases/gaia-l10n/v$hggaiaversion/$localecode/
