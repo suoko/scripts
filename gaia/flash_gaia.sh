@@ -122,8 +122,8 @@ else
 	gitversion="v$version"
 fi
 
-mkdir -p "$repofolder/$hggaiaversion"
-cd "$repofolder/$hggaiaversion"
+mkdir -p "$repofolder/$version"
+cd "$repofolder/$version"
 
 # Check if mercurial and git are available
 if ! hash git 2>/dev/null
@@ -163,7 +163,7 @@ else
 fi
 
 
-cd "$repofolder/$hggaiaversion/gaia/locales"
+cd "$repofolder/$version/gaia/locales"
 
 # Does the locale folder exist?
 if [ -d "$localecode" ]
@@ -213,26 +213,26 @@ else
 fi
 
 
-cd "$repofolder/$hggaiaversion"
+cd "$repofolder/$version"
 
 
 
-if [ $hggaiaversion == "2_0" ]
+if [ $version == '2.0' ]
 then
 b2g_version=32.0
 url=http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-b2g${b2g_version:0:2}_v$hggaiaversion-flame-kk/
 
-elif [ $hggaiaversion == "1_4" ]
+elif [ $version == "1.4" ]
 then
 b2g_version=30.0
 url=http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-b2g${b2g_version:0:2}_v$hggaiaversion-flame/
 
-elif [ $hggaiaversion == "2_1" ]
+elif [ $version == "2.1" ]
 then
 b2g_version=34.0a2
 url=http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-aurora-flame-kk/
 
-elif [ $hggaiaversion == "master" ]
+elif [ $version == "master" ]
 then
 b2g_version=35.0a1
 url=http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-central-flame-kk/
@@ -258,11 +258,11 @@ wget $url/b2g-$b2g_version.en-US.android-arm.tar.gz
 tar -zxvf b2g-$b2g_version.en-US.android-arm.tar.gz
 
 #compile gaia
-cd $repofolder/$hggaiaversion/gaia
+cd $repofolder/$version/gaia
 make clean 
 PRODUCTION=1 make MAKECMDGOALS=production MOZILLA_OFFICIAL=1 GAIA_KEYBOARD_LAYOUTS=en,$localecode LOCALES_FILE=locales/languages_all.json LOCALE_BASEDIR=locales/ DEVICE_DEBUG=1
 
-cd "$repofolder/$hggaiaversion"
+cd "$repofolder/$version"
  
 mkdir system
  
