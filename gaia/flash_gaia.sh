@@ -197,9 +197,7 @@ then
 	elif [ $version == "master"]
 	then
 		echogreen "Cloning https://bitbucket.org/flod/gaia-master-$localecode/"
-		hg clone https://bitbucket.org/flod/gaia-master-$localecode/
-		cp -fr gaia-master-it/* it/
-		rm -fr gaia-master-it
+		hg clone https://bitbucket.org/flod/gaia-master-$localecode/ $localecode 
 	else
 		echogreen "Cloning https://hg.mozilla.org/releases/gaia-l10n/v$hggaiaversion/$localecode/"
 		hg clone https://hg.mozilla.org/releases/gaia-l10n/v$hggaiaversion/$localecode/
