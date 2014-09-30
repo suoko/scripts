@@ -112,7 +112,7 @@ then
 	hggaiaversion="master"
 	gitversion="master"
 
-elif [ $version == "master"]
+elif [ $version == "master" ]
 then
 	hggaiaversion="master"
 	gitversion="master"
